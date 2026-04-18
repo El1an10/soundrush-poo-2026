@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Sound Rush",
+            "request": "launch",
+            "mainClass": "com.unah.soundrush.App",
+            "projectName": "soundrush",
+            "vmArgs": "--module-path ${env:PATH_TO_FX} --add-modules javafx.controls,javafx.graphics,javafx.base,javafx.media"
+        }
+    ]
+}
