@@ -1,79 +1,92 @@
 # Sound Rush — POO I-2026
 
-Videojuego 2D scroll vertical desarrollado en Java + JavaFX.
-La música lucha por sobrevivir en un mundo que prefiere el silencio.
+A vertical-scrolling 2D game built in Java + JavaFX.
+Music fights to survive in a world that has outlawed silence.
 
-## Requisitos
+![Sound Rush — title screen](docs/menu.png)
+
+> In a world where progress silenced every melody, music was declared "unnecessary." Governments of silence sealed the concert halls, burned the sheet music, and suppressed every frequency but the wind. But in the cracks of that gray world, one note survived — the last one. You are that note. Your mission: fight through the Silencers, the Censors, and the walls of wind to bring music back to the heart of humanity.
+
+## Gameplay
+
+![Sound Rush — gameplay](docs/gameplay.png)
+
+## Requirements
 - Java 21 LTS (Temurin)
 - Maven 3.9+
-- VSCode con extensión "Extension Pack for Java"
+- VS Code with the "Extension Pack for Java" (optional, for the editor workflow below)
 
-## Cómo correr
+## How to run
 
-### Opción A — Maven (recomendado)
+### Option A — Maven (recommended)
 ```bash
 mvn javafx:run
 ```
 
-### Opción B — VSCode
-Abre la carpeta `soundrush` en VSCode, ve a `App.java` y presiona el botón **Run** que aparece encima de `main`.
+### Option B — VS Code
+Open the `soundrush` folder in VS Code, go to `App.java`, and press the **Run** button above `main`.
 
-## Controles
-| Tecla | Acción |
+## Controls
+| Key | Action |
 |-------|--------|
-| ↑ / W | Mover arriba |
-| ↓ | Mover abajo |
-| ← / A | Mover izquierda |
-| → / D | Mover derecha |
-| ESPACIO | Disparar onda de sonido |
-| ENTER | Confirmar / Iniciar partida / Volver al menú |
-| R | Reiniciar (en Game Over) |
-| S | Ver puntuaciones (en Menú / Game Over) / Mover abajo (en juego) |
+| ↑ / W | Move up |
+| ↓ | Move down |
+| ← / A | Move left |
+| → / D | Move right |
+| SPACE | Fire sound wave |
+| ENTER | Confirm / Start game / Return to menu |
+| R | Restart (on Game Over) |
+| S | View high scores (Menu / Game Over) / Move down (in-game) |
 
-## Estructura del proyecto
+## Enemies
+- **Silenciador** — slow and tough, crushes anything in its path.
+- **Viento Opresor** — fast and erratic, moves in a zigzag.
+- **Burbuja Shhh** — a bubble that traps the player.
+- **Censor** — fires projectiles from a distance.
+
+## Project structure
 ```
 soundrush/
 ├── pom.xml
 └── src/main/java/
     ├── module-info.java
     └── com/unah/soundrush/
-        ├── App.java                  ← Game loop principal
+        ├── App.java                  ← Main game loop
         ├── clases/
-        │   ├── ObjetoJuego.java      ← Clase base abstracta
-        │   ├── ElementoMovil.java    ← Hereda de ObjetoJuego
-        │   ├── Jugador.java          ← Hereda de ElementoMovil
-        │   ├── Enemigo.java          ← Abstracta, hereda de ElementoMovil
-        │   ├── Proyectil.java        ← Hereda de ElementoMovil
-        │   ├── ItemBonus.java        ← Hereda de ObjetoJuego
-        │   ├── Obstaculo.java        ← Hereda de ObjetoJuego
-        │   ├── Tile.java             ← Hereda de ObjetoJuego
+        │   ├── ObjetoJuego.java      ← Abstract base class
+        │   ├── ElementoMovil.java    ← Extends ObjetoJuego
+        │   ├── Jugador.java          ← Extends ElementoMovil
+        │   ├── Enemigo.java          ← Abstract, extends ElementoMovil
+        │   ├── Proyectil.java        ← Extends ElementoMovil
+        │   ├── ItemBonus.java        ← Extends ObjetoJuego
+        │   ├── Obstaculo.java        ← Extends ObjetoJuego
+        │   ├── Tile.java             ← Extends ObjetoJuego
         │   └── Animacion.java
         ├── enemigos/
-        │   ├── Silenciador.java      ← Hereda de Enemigo (lento, resistente)
-        │   ├── VientoOpresor.java    ← Hereda de Enemigo (zigzag, rápido)
-        │   ├── BurbujaShhh.java      ← Hereda de Enemigo (burbuja que atrapa)
-        │   └── Censor.java           ← Hereda de Enemigo (dispara proyectiles)
+        │   ├── Silenciador.java      ← Extends Enemigo (slow, tough)
+        │   ├── VientoOpresor.java    ← Extends Enemigo (zigzag, fast)
+        │   ├── BurbujaShhh.java      ← Extends Enemigo (traps the player)
+        │   └── Censor.java           ← Extends Enemigo (fires projectiles)
         └── ui/
-            ├── GestorMapa.java       ← TileMap + scroll + generación
-            ├── GestorPuntuaciones.java ← Top 10 en archivo .txt
-            └── HUD.java              ← Interfaz en pantalla
+            ├── GestorMapa.java       ← TileMap + scroll + generation
+            ├── GestorPuntuaciones.java ← Top 10 scores, persisted to a .txt file
+            └── HUD.java              ← On-screen interface
 ```
 
-## Base del proyecto
-Desarrollado a partir del proyecto base del profesor (POO-I2026), extendiendo:
-- La estructura `App.imagenes` (`HashMap<String, Image>`) y `cargarImagenes()` del patrón base
-- Las clases `Jugador`, `Tile`, `Animacion` e `Item` del proyecto base
-- El patrón de `AnimationTimer` y manejo de teclas con booleanos estáticos en `App`
+## Built on top of a course base project
+Extends the professor-provided base project for POO-I2026, building on:
+- The `App.imagenes` structure (`HashMap<String, Image>`) and `cargarImagenes()` from the base pattern
+- The base `Jugador`, `Tile`, `Animacion`, and `Item` classes
+- The `AnimationTimer` pattern and key handling via static booleans in `App`
 
-Los sprites se colocan en `src/main/resources/com/unah/soundrush/` con extensión `.png`.
-Si un sprite no existe, la entidad usa renderizado por formas como fallback.
+Sprites live under `src/main/resources/com/unah/soundrush/` as `.png` files. If a sprite is missing, the entity falls back to shape-based rendering.
 
-## Conceptos POO aplicados
-- **Herencia:** ObjetoJuego → ElementoMovil → Jugador / Enemigo → Silenciador / VientoOpresor / Censor
-- **Clases abstractas:** ObjetoJuego, Enemigo
-- **Sobrecarga de métodos:** Animacion.calcularFrame(double t) / calcularFrame(int indice)
-- **Sobreescritura:** pintar(), actualizar(), mover() en cada subclase
-- **Colecciones:** ArrayList para enemigos/proyectiles, HashMap para scores
-- **Manejo de archivos:** GestorPuntuaciones lee/escribe puntuaciones.txt
-- **Interfaces gráficas:** JavaFX Canvas, AnimationTimer, Stage/Scene
-- **TileMap:** Matriz 2D de tiles con scroll vertical
+## OOP concepts applied
+- **Inheritance:** ObjetoJuego → ElementoMovil → Jugador / Enemigo → Silenciador / VientoOpresor / Censor
+- **Abstract classes:** ObjetoJuego, Enemigo
+- **Method overloading:** `Animacion.calcularFrame(double t)` / `calcularFrame(int indice)`
+- **Method overriding:** `pintar()`, `actualizar()`, `mover()` in each subclass
+- **Collections:** `ArrayList` for enemies/projectiles, `HashMap` for scores
+- **File I/O:** `GestorPuntuaciones` reads/writes `puntuaciones.txt`
+- **Graphics:** JavaFX Canvas, AnimationTimer, Stage/Scene
+- **TileMap:** 2D tile matrix with vertical scrolling
