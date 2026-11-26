@@ -1,15 +1,17 @@
-# Sound Rush — POO I-2026
+# Sound Rush: POO I-2026
+
+[![build](https://github.com/El1an10/soundrush-poo-2026/actions/workflows/build.yml/badge.svg)](https://github.com/El1an10/soundrush-poo-2026/actions/workflows/build.yml)
 
 A vertical-scrolling 2D game built in Java + JavaFX.
 Music fights to survive in a world that has outlawed silence.
 
-![Sound Rush — title screen](docs/menu.png)
+![Sound Rush title screen](docs/menu.png)
 
-> In a world where progress silenced every melody, music was declared "unnecessary." Governments of silence sealed the concert halls, burned the sheet music, and suppressed every frequency but the wind. But in the cracks of that gray world, one note survived — the last one. You are that note. Your mission: fight through the Silencers, the Censors, and the walls of wind to bring music back to the heart of humanity.
+> In a world where progress silenced every melody, music was declared "unnecessary." Governments of silence sealed the concert halls, burned the sheet music, and suppressed every frequency but the wind. But in the cracks of that gray world, one note survived: the last one. You are that note. Your mission: fight through the Silencers, the Censors, and the walls of wind to bring music back to the heart of humanity.
 
 ## Gameplay
 
-![Sound Rush — gameplay](docs/gameplay.png)
+![Sound Rush gameplay](docs/gameplay.png)
 
 ## Requirements
 - Java 21 LTS (Temurin)
@@ -18,13 +20,13 @@ Music fights to survive in a world that has outlawed silence.
 
 ## How to run
 
-### Option A — Maven (recommended)
+### Option A: Maven (recommended)
 ```bash
 mvn javafx:run
 ```
 
-### Option B — VS Code
-Open the `soundrush` folder in VS Code, go to `App.java`, and press the **Run** button above `main`.
+### Option B: VS Code
+Open the repository folder in VS Code, go to `App.java`, and press the **Run** button above `main`.
 
 ## Controls
 | Key | Action |
@@ -39,15 +41,16 @@ Open the `soundrush` folder in VS Code, go to `App.java`, and press the **Run** 
 | S | View high scores (Menu / Game Over) / Move down (in-game) |
 
 ## Enemies
-- **Silenciador** — slow and tough, crushes anything in its path.
-- **Viento Opresor** — fast and erratic, moves in a zigzag.
-- **Burbuja Shhh** — a bubble that traps the player.
-- **Censor** — fires projectiles from a distance.
+- **Silenciador**: slow and tough, crushes anything in its path.
+- **Viento Opresor**: fast and erratic, moves in a zigzag.
+- **Burbuja Shhh**: a bubble that traps the player.
+- **Censor**: fires projectiles from a distance.
 
 ## Project structure
 ```
-soundrush/
+soundrush-poo-2026/
 ├── pom.xml
+├── src/test/java/                    ← JUnit 5 tests (scores, collisions)
 └── src/main/java/
     ├── module-info.java
     └── com/unah/soundrush/
@@ -71,6 +74,14 @@ soundrush/
             ├── GestorMapa.java       ← TileMap + scroll + generation
             ├── GestorPuntuaciones.java ← Top 10 scores, persisted to a .txt file
             └── HUD.java              ← On-screen interface
+```
+
+## Tests
+
+Unit tests use JUnit 5 and cover the high-score manager (ordering, top 10 trimming, persistence, malformed lines) and collision detection. They run on every push and pull request through GitHub Actions.
+
+```bash
+mvn verify
 ```
 
 ## Built on top of a course base project

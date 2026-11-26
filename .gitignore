@@ -1,0 +1,10 @@
+# Build de Maven
+target/
+
+# Puntuaciones locales del jugador (se generan al jugar)
+puntuaciones.txt
+
+# IDE y sistema
+.idea/
+*.iml
+.DS_Store

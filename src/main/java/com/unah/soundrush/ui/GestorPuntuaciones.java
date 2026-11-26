@@ -14,23 +14,33 @@ import java.util.Map;
  */
 public class GestorPuntuaciones {
 
-    private static final String ARCHIVO = "puntuaciones.txt";
+    private static final String ARCHIVO_POR_DEFECTO = "puntuaciones.txt";
     private static final int MAX_PUNTUACIONES = 10;
+
+    private final String archivo;
 
     // HashMap: clave = nombre del jugador, valor = mejor puntuación
     private HashMap<String, Integer> puntuaciones;
 
     public GestorPuntuaciones() {
+        this(ARCHIVO_POR_DEFECTO);
+    }
+
+    /**
+     * Permite indicar otro archivo (por ejemplo, uno temporal en las pruebas).
+     */
+    public GestorPuntuaciones(String archivo) {
+        this.archivo = archivo;
         puntuaciones = new HashMap<>();
         cargarDesdeArchivo();
     }
 
     public void cargarDesdeArchivo() {
         puntuaciones.clear();
-        File archivo = new File(ARCHIVO);
-        if (!archivo.exists()) return;
+        File fichero = new File(archivo);
+        if (!fichero.exists()) return;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fichero))) {
             String linea;
             while ((linea = reader.readLine()) != null) {
                 String[] partes = linea.split(",");
@@ -48,7 +58,7 @@ public class GestorPuntuaciones {
 
     public void guardarEnArchivo() {
         List<Map.Entry<String, Integer>> lista = getListaOrdenada();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARCHIVO))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
             for (Map.Entry<String, Integer> entrada : lista) {
                 writer.write(entrada.getKey() + "," + entrada.getValue());
                 writer.newLine();
